@@ -1,6 +1,6 @@
 # Jugo - JUnit and PyTest Integrator
 
-CLI and GUI program for handling both JUnit test cases and PyTest test cases and Python standard unit test cases
+Python program for handling both JUnit test cases and PyTest test cases and Python standard unit test cases
 
 ## Requirements
 
