@@ -25,4 +25,4 @@ Python program for handling both JUnit test cases and PyTest test cases and Pyth
 
 ## Credits
 
-[Mohammad Mahdi Mohajer](https://github.com/mmohajer9/)\*\*
+**[Mohammad Mahdi Mohajer](https://github.com/mmohajer9/)**
