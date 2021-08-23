@@ -1,10 +1,10 @@
 from PySide2.QtCore import Slot
-from PySide2.QtWidgets import QAction, QApplication, QMainWindow
+from PySide2.QtWidgets import QAction, QApplication, QFormLayout, QLineEdit, QMainWindow
 
 
 class MainWindow(QMainWindow):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, widget):
+        super().__init__()
         self.setWindowTitle("Jugo")
 
         # Menu
@@ -17,10 +17,10 @@ class MainWindow(QMainWindow):
         exit_action = QAction("Exit", self)
         exit_action.setShortcut("Ctrl+Q")
         exit_action.triggered.connect(self.exit_app)
-
+        
         # Adding exit action to file menu
         self.file_menu.addAction(exit_action)
-        
+        self.setCentralWidget(widget)
 
     @Slot()
     def exit_app(self, checked):

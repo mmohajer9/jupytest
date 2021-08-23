@@ -54,14 +54,14 @@ def test(
                 "--scan-classpath",
             ]
         )
-    elif python_dir:
+    if python_dir:
         subprocess.run(
             [
                 "pytest",
                 python_dir,
             ]
         )
-    elif java_file:
+    if java_file:
         subprocess.run(
             [
                 "java",
@@ -73,7 +73,7 @@ def test(
                 java_file[1],
             ]
         )
-    elif python_file_path:
+    if python_file_path:
         subprocess.run(
             [
                 "pytest",
