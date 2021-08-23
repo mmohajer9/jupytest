@@ -4,10 +4,21 @@ import click
 import subprocess
 import os
 import config
-
+import datetime
 
 # java -jar junit5.jar -cp ../examples/junit-example/target/test-classes/ --scan-classpath
 # java -jar junit5.jar -cp ../examples/junit-example/target/test-classes/ -c com.unittest.AppTest
+
+today = [
+    str(datetime.datetime.today().year),
+    str(datetime.datetime.today().month),
+    str(datetime.datetime.today().day),
+    str(datetime.datetime.today().hour),
+    str(datetime.datetime.today().minute),
+    str(datetime.datetime.today().second),
+]
+
+today_formatted = "-".join(today)
 
 
 @click.group()
@@ -61,9 +72,14 @@ def test(
         ]
 
         if output:
-            command.extend([">", output])
+            result = subprocess.run(command, capture_output=True)
+            log = result.stdout.decode("utf-8")
+            f = open(os.path.join(output, today_formatted), "w")
+            f.write(log)
+            f.close()
+        else:
+            subprocess.run(command)
 
-        subprocess.run(command)
     if python_dir:
         command = [
             "pytest",
@@ -71,9 +87,14 @@ def test(
         ]
 
         if output:
-            command.extend([">", output])
+            result = subprocess.run(command, capture_output=True)
+            log = result.stdout.decode("utf-8")
+            f = open(os.path.join(output, today_formatted), "w")
+            f.write(log)
+            f.close()
+        else:
+            subprocess.run(command)
 
-        subprocess.run(command)
     if java_file:
         command = [
             "java",
@@ -86,9 +107,15 @@ def test(
         ]
 
         if output:
-            command.extend([">", output])
+            result = subprocess.run(command, capture_output=True)
+            log = result.stdout.decode("utf-8")
 
-        subprocess.run(command)
+            f = open(os.path.join(output, today_formatted), "w")
+            f.write(log)
+        else:
+            subprocess.run(command)
+            f.close()
+
     if python_file_path:
         command = [
             "pytest",
@@ -96,18 +123,15 @@ def test(
         ]
 
         if output:
-            command.extend([">", output])
+            result = subprocess.run(command, capture_output=True)
+            log = result.stdout.decode("utf-8")
+            f = open(os.path.join(output, today_formatted), "w")
+            f.write(log)
+            f.close()
+        else:
+            subprocess.run(command)
 
-        subprocess.run(command)
-    else:
-        click.echo(
-            click.style(
-                "ATTENTION! TESTING CAN NOT PROCEED",
-                blink=True,
-                bold=True,
-                bg="bright_magenta",
-            )
-        )
+    if not (java_package_dir or python_dir or java_file or python_file_path):
         click.echo(
             click.style(
                 "No option was selected - see --help for more information",
