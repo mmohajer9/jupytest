@@ -32,8 +32,15 @@ def cli():
     type=(click.Path(exists=True), click.STRING),
 )
 @click.option("-pf", "--python-file", "python_file_path", type=click.Path(exists=True))
+@click.option("-o", "--output", "output", type=click.Path(exists=True))
 def test(
-    cwd, junit_jar_file_path, java_package_dir, python_dir, java_file, python_file_path
+    cwd,
+    junit_jar_file_path,
+    java_package_dir,
+    python_dir,
+    java_file,
+    python_file_path,
+    output,
 ):
     """
     Provide the test case files or directory to run the test cases.
@@ -44,42 +51,54 @@ def test(
     dirpath, dirnames, filenames = next(os.walk(target), (None, None, []))
 
     if java_package_dir:
-        subprocess.run(
-            [
-                "java",
-                "-jar",
-                junit_jar_file_path,
-                "-cp",
-                java_package_dir,
-                "--scan-classpath",
-            ]
-        )
+        command = [
+            "java",
+            "-jar",
+            junit_jar_file_path,
+            "-cp",
+            java_package_dir,
+            "--scan-classpath",
+        ]
+
+        if output:
+            command.extend([">", output])
+
+        subprocess.run(command)
     if python_dir:
-        subprocess.run(
-            [
-                "pytest",
-                python_dir,
-            ]
-        )
+        command = [
+            "pytest",
+            python_dir,
+        ]
+
+        if output:
+            command.extend([">", output])
+
+        subprocess.run(command)
     if java_file:
-        subprocess.run(
-            [
-                "java",
-                "-jar",
-                junit_jar_file_path,
-                "-cp",
-                java_file[0],
-                "-c",
-                java_file[1],
-            ]
-        )
+        command = [
+            "java",
+            "-jar",
+            junit_jar_file_path,
+            "-cp",
+            java_file[0],
+            "-c",
+            java_file[1],
+        ]
+
+        if output:
+            command.extend([">", output])
+
+        subprocess.run(command)
     if python_file_path:
-        subprocess.run(
-            [
-                "pytest",
-                python_file_path,
-            ]
-        )
+        command = [
+            "pytest",
+            python_file_path,
+        ]
+
+        if output:
+            command.extend([">", output])
+
+        subprocess.run(command)
     else:
         click.echo(
             click.style(
