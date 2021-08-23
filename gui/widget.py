@@ -11,6 +11,8 @@ from PySide2.QtWidgets import (
     QSpacerItem,
     QWidget,
 )
+import subprocess
+import os
 
 
 class Widget(QWidget):
@@ -69,7 +71,27 @@ class Widget(QWidget):
 
     @Slot()
     def run_tests(self, *args, **kwargs):
-        pass
+        junit = self.junit_file_path.text()
+        jpack = self.java_package_dir.text()
+        jfile = self.java_test_file.text()
+        pydir = self.python_dir.text()
+        pyfile = self.python_file_path.text()
+        outdir = self.output_dir_path.text()
+
+        if not outdir:
+            return
+
+        if os.path.exists(junit) and os.path.exists(jpack):
+            command = []
+
+        if os.path.exists(junit) and os.path.exists(jpack) and os.path.exists(jfile):
+            command = []
+
+        if os.path.exists(pydir):
+            command = []
+
+        if os.path.exists(pyfile):
+            command = []
 
     @Slot()
     def open_output_dir_browser(self, *args, **kwargs):
