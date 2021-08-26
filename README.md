@@ -1,4 +1,4 @@
-# Jypytest - JUnit, PyTest and Python Standard Unit Tests Integrator
+# Jupytest - JUnit, PyTest and Python Standard Unit Tests Integrator
 
 Python program for handling both JUnit test cases and PyTest test cases and Python standard unit test cases
 
