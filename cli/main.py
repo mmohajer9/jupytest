@@ -83,6 +83,7 @@ def test(
     if python_dir:
         command = [
             "pytest",
+            "-v",
             python_dir,
         ]
 
@@ -119,6 +120,7 @@ def test(
     if python_file_path:
         command = [
             "pytest",
+            "-v",
             python_file_path,
         ]
 
