@@ -110,12 +110,11 @@ def test(
         if output:
             result = subprocess.run(command, capture_output=True)
             log = result.stdout.decode("utf-8")
-
             f = open(os.path.join(output, today_formatted), "w")
             f.write(log)
+            f.close()
         else:
             subprocess.run(command)
-            f.close()
 
     if python_file_path:
         command = [

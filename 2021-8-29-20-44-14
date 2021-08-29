@@ -1,0 +1,14 @@
+============================= test session starts ==============================
+platform linux -- Python 3.9.6, pytest-6.2.4, py-1.10.0, pluggy-0.13.1 -- /usr/bin/python
+cachedir: .pytest_cache
+rootdir: /home/mohammad/Desktop/Jupytest
+collecting ... collected 6 items
+
+examples/pytest-example/test_sample2.py::TestStringMethods::test_isupper PASSED [ 16%]
+examples/pytest-example/test_sample2.py::TestStringMethods::test_split PASSED [ 33%]
+examples/pytest-example/test_sample2.py::TestStringMethods::test_upper PASSED [ 50%]
+examples/pytest-example/test_sample3.py::TestStringMethods::test_isupper PASSED [ 66%]
+examples/pytest-example/test_sample3.py::TestStringMethods::test_split PASSED [ 83%]
+examples/pytest-example/test_sample3.py::TestStringMethods::test_upper PASSED [100%]
+
+============================== 6 passed in 0.01s ===============================

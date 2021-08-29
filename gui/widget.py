@@ -13,6 +13,7 @@ from PySide2.QtWidgets import (
 )
 import subprocess
 import os
+import pathlib
 
 
 class Widget(QWidget):
@@ -71,6 +72,11 @@ class Widget(QWidget):
 
     @Slot()
     def run_tests(self, *args, **kwargs):
+
+        cli_path = (
+            pathlib.Path(__file__).parent.parent.resolve().joinpath("cli/main.py")
+        )
+
         junit = self.junit_file_path.text()
         jpack = self.java_package_dir.text()
         jfile = self.java_test_file.text()
@@ -82,16 +88,44 @@ class Widget(QWidget):
             return
 
         if os.path.exists(junit) and os.path.exists(jpack):
-            command = []
+            command = [cli_path, "test", "-junit", junit, "-jd", jpack, "-o", outdir]
+            subprocess.run(command)
 
         if os.path.exists(junit) and os.path.exists(jpack) and os.path.exists(jfile):
-            command = []
+            command = [
+                cli_path,
+                "test",
+                "-junit",
+                junit,
+                "-jf",
+                jpack,
+                jfile,
+                "-o",
+                outdir,
+            ]
+            subprocess.run(command)
 
         if os.path.exists(pydir):
-            command = []
+            command = [
+                cli_path,
+                "test",
+                "-pd",
+                pydir,
+                "-o",
+                outdir,
+            ]
+            subprocess.run(command)
 
         if os.path.exists(pyfile):
-            command = []
+            command = [
+                cli_path,
+                "test",
+                "-pf",
+                pyfile,
+                "-o",
+                outdir,
+            ]
+            subprocess.run(command)
 
     @Slot()
     def open_output_dir_browser(self, *args, **kwargs):
